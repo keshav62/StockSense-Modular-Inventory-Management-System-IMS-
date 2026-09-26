@@ -1,1 +1,14 @@
-// Initial file
+{
+  "name": "stocksense-ims",
+  "version": "1.0.0",
+  "description": "StockSense – Modular Inventory Management System",
+  "private": true,
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "seed": "cd backend && npm run seed"
+  },
+  "keywords": ["inventory", "management", "stocksense"],
+  "license": "ISC"
+}

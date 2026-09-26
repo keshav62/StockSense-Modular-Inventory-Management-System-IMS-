@@ -1,1 +1,98 @@
-// Initial file
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #F8FAFC;
+    color: #1E293B;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F1F5F9;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+  }
+}
+
+@layer components {
+  /* Form input base */
+  .input-field {
+    @apply w-full px-4 py-3 border border-slate-200 rounded-xl text-sm bg-slate-50/50
+           focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500
+           focus:bg-white transition-all duration-200 placeholder-slate-400 text-slate-800;
+  }
+
+  .input-field.error {
+    @apply border-red-400 focus:ring-red-500 focus:border-red-500 bg-red-50/10;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase;
+  }
+
+  .badge-success {
+    @apply bg-emerald-100/80 text-emerald-700 border border-emerald-200;
+  }
+
+  .badge-danger {
+    @apply bg-red-100/80 text-red-700 border border-red-200;
+  }
+
+  .badge-warning {
+    @apply bg-amber-100/80 text-amber-700 border border-amber-200;
+  }
+
+  .badge-info {
+    @apply bg-blue-100/80 text-blue-700 border border-blue-200;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-white rounded-2xl border border-slate-100 p-6;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md rounded-2xl border border-white/50 p-8;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  }
+
+  /* Skeleton loader animation */
+  .skeleton {
+    @apply animate-pulse bg-slate-200 rounded;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400;
+  }
+}
