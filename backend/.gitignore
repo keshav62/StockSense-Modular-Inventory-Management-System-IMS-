@@ -1,1 +1,5 @@
-// Initial file
+node_modules/
+.env
+.env.local
+*.log
+npm-debug.log*
