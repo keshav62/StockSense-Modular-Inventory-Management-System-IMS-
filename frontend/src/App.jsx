@@ -1,112 +1,23 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import { AuthProvider } from './context/AuthContext';
-
-// Auth Pages
 import Login from './pages/auth/Login';
-import Signup from './pages/auth/Signup';
-import ForgotPassword from './pages/auth/ForgotPassword';
-import VerifyOTP from './pages/auth/VerifyOTP';
-import ResetPassword from './pages/auth/ResetPassword';
+import Dashboard from './pages/Dashboard';
+import { useState } from 'react';
 
-// Layout & Protection
-import DashboardLayout from './components/layout/DashboardLayout';
-import ProtectedRoute from './components/layout/ProtectedRoute';
-import PublicRoute from './components/layout/PublicRoute';
+function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-// App Pages
-import Products from './pages/products/Products';
-import CreateProduct from './pages/products/CreateProduct';
-import EditProduct from './pages/products/EditProduct';
-import ProductDetails from './pages/products/ProductDetails';
-import Profile from './pages/profile/Profile';
-
-const App = () => {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Toaster
-          position="top-right"
-          toastOptions={{
-            duration: 4000,
-            style: {
-              background: '#333',
-              color: '#fff',
-            },
-          }}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login setAuth={setIsAuthenticated} />} />
+        <Route 
+          path="/dashboard" 
+          element={isAuthenticated ? <Dashboard setAuth={setIsAuthenticated} /> : <Navigate to="/login" />} 
         />
-        <Routes>
-          {/* Public Auth Routes */}
-          <Route element={<PublicRoute />}>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/verify-otp" element={<VerifyOTP />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-          </Route>
-
-          {/* Protected Routes inside Dashboard Layout */}
-          <Route element={<ProtectedRoute />}>
-            <Route
-              path="/"
-              element={
-                <DashboardLayout>
-                  <Navigate to="/products" replace />
-                </DashboardLayout>
-              }
-            />
-
-            {/* Product Routes */}
-            <Route
-              path="/products"
-              element={
-                <DashboardLayout>
-                  <Products />
-                </DashboardLayout>
-              }
-            />
-            <Route
-              path="/products/create"
-              element={
-                <DashboardLayout>
-                  <CreateProduct />
-                </DashboardLayout>
-              }
-            />
-            <Route
-              path="/products/:id"
-              element={
-                <DashboardLayout>
-                  <ProductDetails />
-                </DashboardLayout>
-              }
-            />
-            <Route
-              path="/products/:id/edit"
-              element={
-                <DashboardLayout>
-                  <EditProduct />
-                </DashboardLayout>
-              }
-            />
-
-            {/* Profile Route */}
-            <Route
-              path="/profile"
-              element={
-                <DashboardLayout>
-                  <Profile />
-                </DashboardLayout>
-              }
-            />
-          </Route>
-
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+        <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} />} />
+      </Routes>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;
